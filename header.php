@@ -10,49 +10,99 @@
  */
 
 ?>
-<!doctype html>
-<html <?php language_attributes(); ?>>
-<head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="http://gmpg.org/xfn/11">
+<!DOCTYPE html>
+<html lang="ru">
 
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title><?php echo wp_get_document_title(); ?></title>
+	<script src="https://use.fontawesome.com/bc10fcc3e2.js"></script>
 	<?php wp_head(); ?>
+
 </head>
 
-<body <?php body_class(); ?>>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'photography' ); ?></a>
-
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
+<body>
+	<header class="header-page">
+		<div class="container">
+			<div class="row top-menu"> 
+				<div class="col-xs-3 col-sm-3 mobile-menu-wrapper">
+					<a href="#" id="touch-menu">
+						<div id="nav-icon4">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-12 col-xs-9 col-sm-9 logo-wrapper">
+					<div class="logo logo-top">
+						<a href="#">
+						<?php 
+							$logo = get_custom_logo();
+							if (!$logo)
+								echo '<img src="' . get_template_directory_uri() . '/img/logo-.png" alt="">';
+							?>
+							<span><?php 
+									$logo = get_custom_logo();
+									if ($logo)
+										echo $logo;
+									else
+										echo bloginfo('name'); 
+							?></span>
+						</a>
+					</div>
+				</div>
+				<div class="w-100"></div>
+				<nav class="col-lg-8 col-xs-12 col-sm-12 top-nav">
+					<?php wp_nav_menu( array(
+						'container'       => 'ul',
+						'menu_class'      => 'nav',
+						'walker'          => new myMenu(),
+					) ); ?>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<div class="slide">
+		<div class="container">
+			<div class="row slide-align">
+				<div class="greeting">
+					<?php 
+						the_post();
+						the_content(); 
+					?>
+					<?php 
+						$buttonText = get_post_meta( get_option('page_on_front'), 'buttonText', true);
+						if (!empty($buttonText))
+							echo '<a href="#" class="btn btn-color-y ">' . $buttonText . '</a>';
+					?>
+				</div>
+			</div>
+		</div>
+		<div class="social">
+			<ul>
+				<?php 
+					the_post();
+					$icons = get_post_meta(get_option('page_on_front'), 'fontAwesome', false);
+					$social_url = get_post_meta(get_option('page_on_front'), 'socialURL', false);
 				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$photography_description = get_bloginfo( 'description', 'display' );
-			if ( $photography_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $photography_description; /* WPCS: xss ok. */ ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'photography' ); ?></button>
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'menu-1',
-				'menu_id'        => 'primary-menu',
-			) );
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
-
-	<div id="content" class="site-content">
+				<?php for ($i=0; $i < count($social_url); $i++) { ?>
+				<li>
+					<a href="<?php echo $social_url[$i] ?>" title="<?php echo get_the_title(); ?>"><i class="fa <?php echo $icons[$i]  ?>" aria-hidden="true"></i></a>
+				</li>
+				<?php } ?>
+			</ul>
+		</div>
+		<div class="decoration bottom-left"></div>
+		<div class="decoration bottom-right"></div>
+		<a href="#first">
+			<div class="arrow">
+				<span></span>
+				<span></span>
+			</div>
+		</a>
+	</div>
+	
