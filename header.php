@@ -38,7 +38,7 @@
 				</div>
 				<div class="col-lg-4 col-md-12 col-xs-9 col-sm-9 logo-wrapper">
 					<div class="logo logo-top">
-						<a href="#">
+						<a href="<?php echo home_url(); ?>">
 						<?php 
 							$logo = get_custom_logo();
 							if (!$logo)

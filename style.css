@@ -3778,7 +3778,7 @@ body {
   transition: .4s;
 }
 
-.blog-text {
+.blog-description p {
   font-weight: 300;
   overflow: hidden;
 }
