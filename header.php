@@ -70,8 +70,10 @@
 			<div class="row slide-align">
 				<div class="greeting">
 					<?php 
-						the_post();
-						the_content(); 
+					$id = get_option('page_on_front');
+					$post_id = get_post($id);
+					$content = $post_id->post_content;
+					echo $content;
 					?>
 					<?php 
 						$buttonText = get_post_meta( get_option('page_on_front'), 'buttonText', true);
