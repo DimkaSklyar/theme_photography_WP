@@ -150,9 +150,9 @@ Template Name: Theme Page
 											}
 										}
 										?>
-									</span><span class="date">-<?php echo get_the_date('M d Y'); ?></span>
+									</span><span class="date">- <?php echo get_the_date('M d Y'); ?></span>
 								</div>
-								<?php the_content(); ?>
+								<?php the_excerpt(); ?>
 								<a href="<?php the_permalink(); ?>">Read More</a>
 							</div>
 						</div>

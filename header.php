@@ -24,7 +24,7 @@
 </head>
 
 <body>
-	<header class="header-page">
+	<header class="header-page <?php if (!is_front_page()) echo 'post-header' ?>">
 		<div class="container">
 			<div class="row top-menu"> 
 				<div class="col-xs-3 col-sm-3 mobile-menu-wrapper">
@@ -65,6 +65,7 @@
 			</div>
 		</div>
 	</header>
+	<?php if (is_front_page()) {?>
 	<div class="slide">
 		<div class="container">
 			<div class="row slide-align">
@@ -107,4 +108,5 @@
 			</div>
 		</a>
 	</div>
+	<?php } ?>
 	
